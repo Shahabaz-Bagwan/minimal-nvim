@@ -1,68 +1,65 @@
+local map = vim.keymap.set
 -- keymap
 --------------------------------------------------------------------------------
 -- Navigate visual lines
-vim.keymap.set({ "n", "x" }, "j", "gj", { desc = "Navigate down (visual line)" })
-vim.keymap.set({ "n", "x" }, "k", "gk", { desc = "Navigate up (visual line)" })
-vim.keymap.set({ "n", "x" }, "<Down>", "gj",
-  { desc = "Navigate down (visual line)" })
-vim.keymap.set({ "n", "x" }, "<Up>", "gk", { desc = "Navigate up (visual line)" })
-vim.keymap.set("i", "<Down>", "<C-\\><C-o>gj",
-  { desc = "Navigate down (visual line)" })
-vim.keymap.set("i", "<Up>", "<C-\\><C-o>gk",
-  { desc = "Navigate up (visual line)" })
+map({ "n", "x" }, "j", "gj", { desc = "Navigate down (visual line)" })
+map({ "n", "x" }, "k", "gk", { desc = "Navigate up (visual line)" })
+map({ "n", "x" }, "<Down>", "gj", { desc = "Navigate down (visual line)" })
 
-vim.keymap.set({ "n", "v" }, "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"',
-  { desc = "Move down", expr = true })
-vim.keymap.set({ "n", "v" }, "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"',
-  { desc = "Move up", expr = true })
-vim.keymap.set({ "n", "v" }, "Up", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"',
-  { desc = "Move up", expr = true })
-vim.keymap.set(
-  { "n", "v" },
-  "Down",
-  'v:count || mode(1)[0:1] == "no" ? "j" : "gj"',
-  { desc = "Move down", expr = true }
-)
+map({ "n", "v" }, ";", ":", { desc = "Enter cmd" })
+
+map({ "n", "x" }, "<Up>", "gk", { desc = "Navigate up (visual line)" }) map("i", "<Down>", "<C-\\><C-o>gj", { desc = "Navigate down (visual line)" })
+
+map("i", "<Up>", "<C-\\><C-o>gk", { desc = "Navigate up (visual line)" })
+
+map({ "n", "v" }, "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { desc = "Move down", expr = true })
+map({ "n", "v" }, "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { desc = "Move up", expr = true })
+map({ "n", "v" }, "Up", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { desc = "Move up", expr = true })
+map( { "n", "v" }, "Down", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { desc = "Move down", expr = true })
 
 -- Move Lines
-vim.keymap.set({ "n", "x" }, "<M-S-Up>", ":move -2<cr>",
-  { desc = "Move Line Up" })
-vim.keymap.set({ "n", "x" }, "<M-S-Down>", ":move +1<cr>",
-  { desc = "Move Line Down" })
-vim.keymap.set("i", "<M-S-Up>", "<C-o>:move -2<cr>", { desc = "Move Line Up" })
-vim.keymap.set("i", "<M-S-Down>", "<C-o>:move +1<cr>",
-  { desc = "Move Line Down" })
-
--- Easier interaction with the system clipboard
-vim.keymap.set({ "n", "x" }, "<leader>y", '"+y',
-  { desc = "Copy to system clipboard" })
-vim.keymap.set({ "n", "x" }, "<leader>p", '"+p',
-  { desc = "Paste from system clipboard after the cursor position" })
-vim.keymap.set({ "n", "x" }, "<leader>P", '"+P',
-  { desc = "Paste from system clipboard before the cursor position" })
-
--- Navigating buffers
-vim.keymap.set("n", "<leader>bb", "<C-^>",
-  { desc = "Switch to alternate buffer" })
-vim.keymap.set("n", "<TAB>", ":bnext<cr>", { desc = "Next buffer" })
-vim.keymap.set("n", "S-<TAB>", ":bprevious<cr>", { desc = "Previous buffer" })
-
--- Ctrl-L redraws the screen by default. Now it will also toggle search highlighting.
-vim.keymap.set("n", "<C-l>", ":set hlsearch!<cr><C-l>",
-  { desc = "Toggle search highlighting" })
+map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move Line Down", silent = true })
+map("v", "K", ":m '>-2<CR>gv=gv", { desc = "Move Line Up", silent = true })
 
 -- Toggle visible whitespace characters
-vim.keymap.set("n", "<leader>l", ":listchars!<cr>",
-  { desc = "Toggle [l]istchars" })
+map("n", "<leader>l", ":set list!<cr>", { desc = "Toggle [l]istchars", silent = true })
 
 -- Diagnostic keymaps
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist,
-  { desc = "Open diagnostic [Q]uickfix list" })
+map("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 
--- Quickly source current file / execute Lua code
-vim.keymap.set("n", "<leader>xx", "<Cmd>source %<CR>",
-  { desc = "Source current file" })
-vim.keymap.set("n", "<leader>x", "<Cmd>:.lua<CR>",
-  { desc = "Lua: execute current line" })
-vim.keymap.set("v", "<leader>x", "<Cmd>:lua<CR>",
-  { desc = "Lua: execute current selection" })
+map("i", "<C-b>", "<ESC>^i", { desc = "move beginning of line", silent = true })
+map("i", "<C-e>", "<End>", { desc = "move end of line", silent = true })
+map("i", "<C-h>", "<Left>", { desc = "move left", silent = true })
+map("i", "<C-l>", "<Right>", { desc = "move right", silent = true })
+map("i", "<C-j>", "<Down>", { desc = "move down", silent = true })
+map("i", "<C-k>", "<Up>", { desc = "move up", silent = true })
+
+map("n", "<C-h>", "<C-w>h", { desc = "switch window left", silent = true })
+map("n", "<C-l>", "<C-w>l", { desc = "switch window right", silent = true })
+map("n", "<C-j>", "<C-w>j", { desc = "switch window down", silent = true })
+map("n", "<C-k>", "<C-w>k", { desc = "switch window up", silent = true })
+
+map("n", "<Esc>", "<cmd>noh<CR>", { desc = "general clear highlights", silent = true })
+
+map("n", "<C-s>", "<cmd>w<CR>", { desc = "general save file", silent = true })
+map("n", "<C-c>", "<cmd>%y+<CR>", { desc = "general copy whole file", silent = true })
+
+map("n", "<leader>n", "<cmd>set nu!<CR>", { desc = "toggle line number", silent = true })
+map("n", "<leader>rn", "<cmd>set rnu!<CR>", { desc = "toggle relative number", silent = true })
+
+-- global lsp mappings
+map("n", "<leader>ds", vim.diagnostic.setloclist, { desc = "LSP diagnostic loclist" })
+
+-- tabufline
+map("n", "<leader>b", "<cmd>enew<CR>", { desc = "buffer new", silent = true })
+
+
+map("n", "<leader>x", "<cmd>bd<cr>", { desc = "buffer close", silent = true })
+
+-- Comment
+map("n", "<leader>/", "gcc", { desc = "toggle comment", remap = true })
+map("v", "<leader>/", "gc", { desc = "toggle comment", remap = true })
+
+-- terminal
+map("t", "<C-x>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
+
