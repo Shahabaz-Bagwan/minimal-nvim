@@ -8,14 +8,15 @@ map({ "n", "x" }, "<Down>", "gj", { desc = "Navigate down (visual line)" })
 
 map({ "n", "v" }, ";", ":", { desc = "Enter cmd" })
 
-map({ "n", "x" }, "<Up>", "gk", { desc = "Navigate up (visual line)" }) map("i", "<Down>", "<C-\\><C-o>gj", { desc = "Navigate down (visual line)" })
+map({ "n", "x" }, "<Up>", "gk", { desc = "Navigate up (visual line)" })
+map("i", "<Down>", "<C-\\><C-o>gj", { desc = "Navigate down (visual line)" })
 
 map("i", "<Up>", "<C-\\><C-o>gk", { desc = "Navigate up (visual line)" })
 
 map({ "n", "v" }, "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { desc = "Move down", expr = true })
 map({ "n", "v" }, "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { desc = "Move up", expr = true })
 map({ "n", "v" }, "Up", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { desc = "Move up", expr = true })
-map( { "n", "v" }, "Down", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { desc = "Move down", expr = true })
+map({ "n", "v" }, "Down", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { desc = "Move down", expr = true })
 
 -- Move Lines
 map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move Line Down", silent = true })
@@ -53,7 +54,9 @@ map("n", "<leader>ds", vim.diagnostic.setloclist, { desc = "LSP diagnostic locli
 -- tabufline
 map("n", "<leader>b", "<cmd>enew<CR>", { desc = "buffer new", silent = true })
 
-
+map("n", "<tab>", "<cmd>bn<cr>", { desc = "buffer goto next", nowait = true })
+map("n", "<S-tab>", "<cmd>bp<cr>", { desc = "buffer goto prev", nowait = true })
+map("n", "<leader>xa", "<cmd> %bd <bar> e# <bar> bd# <bar> '\" <CR>", { desc = "buffer close others", nowait = true })
 map("n", "<leader>x", "<cmd>bd<cr>", { desc = "buffer close", silent = true })
 
 -- Comment
@@ -62,4 +65,3 @@ map("v", "<leader>/", "gc", { desc = "toggle comment", remap = true })
 
 -- terminal
 map("t", "<C-x>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
-
