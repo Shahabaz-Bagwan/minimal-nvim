@@ -45,9 +45,6 @@ map("n", "<Esc>", "<cmd>noh<CR>", { desc = "general clear highlights", silent = 
 map("n", "<C-s>", "<cmd>w<CR>", { desc = "general save file", silent = true })
 map("n", "<C-c>", "<cmd>%y+<CR>", { desc = "general copy whole file", silent = true })
 
-map("n", "<leader>n", "<cmd>set nu!<CR>", { desc = "toggle line number", silent = true })
-map("n", "<leader>rn", "<cmd>set rnu!<CR>", { desc = "toggle relative number", silent = true })
-
 -- global lsp mappings
 map("n", "<leader>ds", vim.diagnostic.setloclist, { desc = "LSP diagnostic loclist" })
 
@@ -56,7 +53,7 @@ map("n", "<leader>b", "<cmd>enew<CR>", { desc = "buffer new", silent = true })
 
 map("n", "<tab>", "<cmd>bn<cr>", { desc = "buffer goto next", nowait = true })
 map("n", "<S-tab>", "<cmd>bp<cr>", { desc = "buffer goto prev", nowait = true })
-map("n", "<leader>xa", "<cmd> %bd <bar> e# <bar> bd# <bar> '\" <CR>", { desc = "buffer close others", nowait = true })
+map("n", "<leader>ca", "<cmd> %bd <bar> e# <bar> bd# <bar> '\" <CR>", { desc = "buffer close others", nowait = true })
 map("n", "<leader>x", "<cmd>bd<cr>", { desc = "buffer close", silent = true })
 
 -- Comment
