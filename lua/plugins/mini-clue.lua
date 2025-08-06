@@ -13,8 +13,9 @@ require("mini.clue").setup({
 				starts = 1
 				ends = win_height
 			else
-				width = math.floor(win_width * 0.9) -- 50%
-				height = math.floor(win_height * 0.2) -- 30%
+				width = math.floor(win_width * 0.4) -- 50%
+				-- keep the height automatic
+				-- height = math.floor(win_height * 0.2) -- 30%
 				starts = math.floor((win_width - width) / 2)
 				ends = math.floor(win_height)
 			end
@@ -64,6 +65,10 @@ require("mini.clue").setup({
 		-- `z` key
 		{ mode = "n", keys = "z" },
 		{ mode = "x", keys = "z" },
+
+		-- 'min.bracketed' key
+		{ mode = "n", keys = "[" },
+		{ mode = "n", keys = "]" },
 	},
 
 	clues = {

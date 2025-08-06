@@ -11,6 +11,7 @@ require("mini.notify").setup()
 require("mini.tabline").setup()
 require("mini.starter").setup()
 require("mini.extra").setup()
+require("mini.bracketed").setup()
 
 ----------------------------------------------------------------------
 require("mini.icons").setup()
