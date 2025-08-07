@@ -3,29 +3,12 @@ require("mini.clue").setup({
 	delay = 0,
 	window = {
 		config = function()
-			local height, width, starts, ends
-			local win_width = vim.o.columns
-			local win_height = vim.o.lines
-
-			if win_height <= 25 then
-				height = math.min(win_height, 18)
-				width = win_width
-				starts = 1
-				ends = win_height
-			else
-				width = math.floor(win_width * 0.4) -- 50%
-				-- keep the height automatic
-				-- height = math.floor(win_height * 0.2) -- 30%
-				starts = math.floor((win_width - width) / 2)
-				ends = math.floor(win_height)
-			end
-
+			local height = math.floor(0.618 * vim.o.lines)
+			local width = math.floor(0.618 * vim.o.columns)
 			return {
-				col = starts,
-				row = ends,
-				height = height,
-				width = width,
-				style = "minimal",
+				anchor = "NW",
+				row = math.floor(0.5 * (vim.o.lines - height)),
+				col = math.floor(0.5 * (vim.o.columns - width)),
 			}
 		end,
 
