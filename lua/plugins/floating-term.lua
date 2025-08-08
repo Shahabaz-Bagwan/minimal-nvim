@@ -125,7 +125,7 @@ vim.api.nvim_create_user_command("LazyGit", function()
 	open_lazygit("lazygit")
 end, {})
 vim.api.nvim_create_user_command("ConfigureAll", function()
-	open_lazygit("cd ./build; cmake .. -D ninja;")
+	open_lazygit("mkdir -p build; cd ./build; cmake .. -G Ninja")
 end, {})
 
 vim.keymap.set("n", "<leader>tt", "<cmd>ToggleFloatingTerminal<cr>", { desc = "Toggle floating terminal" })
