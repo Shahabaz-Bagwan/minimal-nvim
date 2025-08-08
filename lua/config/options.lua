@@ -9,7 +9,7 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 
 -- Keep signcolumn on by default
-vim.opt.signcolumn = 'yes'
+vim.opt.signcolumn = "yes"
 
 -- Cursorline
 vim.opt.cursorline = true
@@ -19,7 +19,7 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 -- Preview substitutions
-vim.opt.inccommand = 'split'
+vim.opt.inccommand = "split"
 
 -- Text wrapping
 vim.opt.wrap = true
@@ -40,7 +40,7 @@ vim.opt.splitbelow = true
 vim.opt.undofile = true
 
 -- Set the default border for all floating windows
-vim.opt.winborder = 'rounded'
+vim.opt.winborder = "rounded"
 -- custom options
 vim.scriptencoding = "utf-8"
 vim.o.encoding = "utf-8"
@@ -60,7 +60,7 @@ vim.o.foldcolumn = "1"
 vim.o.relativenumber = true
 vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
 -- vim.opt.foldenable = false
-vim.api.nvim_create_autocmd({ "BufEnter" }, { pattern = { "*" }, command = "normal zx" })
+-- vim.api.nvim_create_autocmd({ "BufEnter" }, { pattern = { "*" }, command = "normal zx" })
 vim.api.nvim_create_autocmd({ "BufEnter" }, { pattern = { "*" }, command = "normal zR" })
 -------------------------------------- options ------------------------------------------
 o.laststatus = 3
@@ -70,7 +70,6 @@ o.splitkeep = "screen"
 o.clipboard = "unnamedplus"
 o.cursorlineopt = "number"
 
-
 opt.fillchars = { eob = " " }
 
 -- Numbers
@@ -78,7 +77,7 @@ o.numberwidth = 2
 o.ruler = false
 
 -- disable nvim intro
-opt.shortmess:append "sI"
+opt.shortmess:append("sI")
 
 o.timeoutlen = 400
 
@@ -87,7 +86,7 @@ o.updatetime = 250
 
 -- go to previous/next line with h,l,left arrow and right arrow
 -- when cursor reaches end/beginning of line
-opt.whichwrap:append "<>[]hl"
+opt.whichwrap:append("<>[]hl")
 
 -- disable some default providers
 g.loaded_node_provider = 0
@@ -96,7 +95,7 @@ g.loaded_perl_provider = 0
 g.loaded_ruby_provider = 0
 
 -- add binaries installed by mason.nvim to path
-local is_windows = vim.fn.has "win32" ~= 0
+local is_windows = vim.fn.has("win32") ~= 0
 local sep = is_windows and "\\" or "/"
 local delim = is_windows and ";" or ":"
-vim.env.PATH = table.concat({ vim.fn.stdpath "data", "mason", "bin" }, sep) .. delim .. vim.env.PATH
+vim.env.PATH = table.concat({ vim.fn.stdpath("data"), "mason", "bin" }, sep) .. delim .. vim.env.PATH
