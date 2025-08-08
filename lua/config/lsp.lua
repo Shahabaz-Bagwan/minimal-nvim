@@ -63,8 +63,8 @@ capabilities.textDocument.completion.completionItem = {
 		},
 	},
 }
--- vim.lsp.config("*", { capabilities = capabilities })
-vim.lsp.config("*", { capabilities = "v:lua.MiniCompletion.get_lsp_capabilities()" })
+vim.lsp.config("*", { capabilities = capabilities })
+-- vim.lsp.config("*", { capabilities = "v:lua.MiniCompletion.get_lsp_capabilities()" })
 
 -- Diagnostics
 vim.diagnostic.config({
