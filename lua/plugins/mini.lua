@@ -3,15 +3,12 @@ vim.pack.add({
 })
 require("mini.indentscope").setup({ symbol = "│", options = { try_as_border = true } })
 require("mini.surround").setup()
-require("mini.ai").setup()
 require("mini.statusline").setup()
 require("mini.cursorword").setup()
 require("mini.pairs").setup()
 require("mini.notify").setup()
 require("mini.tabline").setup()
-require("mini.starter").setup()
 require("mini.extra").setup()
-require("mini.bracketed").setup()
 
 ----------------------------------------------------------------------
 require("mini.icons").setup()
