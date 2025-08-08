@@ -31,6 +31,7 @@ map("n", "<leader>fo", "<cmd>Pick oldfiles<cr>", { desc = "find from recent file
 map("n", "<leader>gh", "<cmd>Pick git_hunks<CR>", { desc = "git hunks" })
 
 map("n", "<leader>gd", "<cmd>Pick lsp scope='definition'<CR>", { desc = "go to definition" })
+map("n", "<leader>gdi", "<cmd>Pick diagnostic<CR>", { desc = "go to diagnostic" })
 map("n", "<leader>gD", "<cmd>Pick lsp scope='declaration'<CR>", { desc = "go to declaration" })
 map("n", "<leader>gi", "<cmd>Pick lsp scope='implementation'<CR>", { desc = "go to implementation" })
 map("n", "<leader>gr", "<cmd>Pick lsp scope='references'<CR>", { desc = "go to references" })
