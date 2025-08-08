@@ -41,3 +41,4 @@ map("n", "<leader>ws", "<cmd>Pick lsp scope='workspace_symbol'<cr>", { desc = "f
 
 map("n", "<leader>fr", "<cmd>Pick resume <CR>", { desc = "resume old search" })
 map("n", "<leader>fk", "<cmd>Pick keymaps <CR>", { desc = "show all keymaps" })
+map("n", "z=", "<cmd>Pick spellsuggest<CR>", { desc = "show spelling suggestions" })
