@@ -79,13 +79,34 @@ local toggle_terminal = function()
 	end
 end
 
-local open_lazygit = function()
+local function open_lazygit(cmd)
+	if not cmd or cmd == "" then
+		vim.notify("No command provided for floating terminal", vim.log.levels.WARN)
+		return
+	end
 	local scaling = 0.9
 	if not vim.api.nvim_win_is_valid(state.floating.win) then
 		state.floating = create_floating_window(scaling, { buf = state.floating.buf })
 		if vim.bo[state.floating.buf].buftype ~= "terminal" then
-			vim.cmd.terminal("lazygit")
+			vim.cmd.terminal(cmd)
 			vim.cmd("startinsert")
+			vim.api.nvim_create_autocmd("TermClose", {
+				buffer = state.floating.buf,
+				once = true,
+				callback = function()
+					-- schedule UI changes to avoid textlock
+					vim.schedule(function()
+						-- close the floating window if still valid
+						if vim.api.nvim_win_is_valid(state.floating.win) then
+							pcall(vim.api.nvim_win_close, state.floating.win, true)
+						end
+						-- delete the buffer (use mini.bufremove if present)
+						if vim.api.nvim_buf_is_valid(state.floating.buf) then
+							vim.api.nvim_buf_delete(state.floating.buf, { force = true })
+						end
+					end)
+				end,
+			})
 		end
 	else
 		vim.api.nvim_win_hide(state.floating.win)
@@ -100,8 +121,14 @@ end
 -- Create a floating window with default dimensions
 vim.api.nvim_create_user_command("ToggleFloatingTerminal", toggle_terminal, {})
 vim.api.nvim_create_user_command("CloseTerminal", close_terminal, {})
-vim.api.nvim_create_user_command("LazyGit", open_lazygit, {})
+vim.api.nvim_create_user_command("LazyGit", function()
+	open_lazygit("lazygit")
+end, {})
+vim.api.nvim_create_user_command("ConfigureAll", function()
+	open_lazygit("cd ./build; cmake .. -D ninja;")
+end, {})
 
 vim.keymap.set("n", "<leader>tt", "<cmd>ToggleFloatingTerminal<cr>", { desc = "Toggle floating terminal" })
 vim.keymap.set("n", "<leader>tc", "<cmd>CloseTerminal<cr>", { desc = "Close floating terminal" })
-vim.keymap.set("n", "<leader>tg", "<cmd>LazyGit<cr>", { desc = "open lazygit" })
+vim.keymap.set("n", "<leader>lg", "<cmd>LazyGit<cr>", { desc = "open lazygit" })
+vim.keymap.set("n", "<leader>coa", "<cmd>ConfigureAll<cr>", { desc = "configure the project via cmake" })
