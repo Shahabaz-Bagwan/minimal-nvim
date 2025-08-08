@@ -16,9 +16,22 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			vim.bo[ev.buf].omnifunc = "v:lua.MiniCompletion.completefunc_lsp"
 			vim.opt.completeopt = { "menu", "menuone", "noinsert", "fuzzy", "popup" }
 			vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
+
 			vim.keymap.set("n", "grd", function()
 				vim.lsp.buf.definition()
 			end, { buffer = ev.buf, desc = "vim.lsp.buf.definition()" })
+
+			vim.keymap.set("n", "grD", function()
+				vim.lsp.buf.definition()
+			end, { buffer = ev.buf, desc = "vim.lsp.buf.declaration()" })
+
+			local map = vim.keymap.set
+
+			map("n", "gri", "<cmd>Pick lsp scope='implementation'<CR>", { desc = "go to implementation" })
+			map("n", "grr", "<cmd>Pick lsp scope='references'<CR>", { desc = "go to references" })
+			map("n", "grt", "<cmd>Pick lsp scope='type_definition'<CR>", { desc = "go to type_definition" })
+			map("n", "grs", "<cmd>Pick lsp scope='document_symbol'<cr>", { desc = "find document_symbol" })
+			map("n", "grw", "<cmd>Pick lsp scope='workspace_symbol'<cr>", { desc = "find workspace_symbol" })
 
 			vim.keymap.set("i", "<C-Space>", function()
 				vim.lsp.completion.get()
