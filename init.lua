@@ -10,6 +10,7 @@ require("plugins.mini-pick")
 require("plugins.mini-clue")
 require("plugins.nvim-dev-icons")
 require("plugins.floating-term")
+require("plugins.persistence")
 
 -- Only load Render-Markdown for markdown files
 vim.api.nvim_create_autocmd("FileType", {
@@ -37,9 +38,6 @@ vim.api.nvim_create_autocmd("BufRead", {
 		require("plugins.gitsigns")
 
 		vim.cmd("packadd nvim-lspconfig")
-
-		vim.cmd("packadd persistence.nvim")
-		require("plugins.persistence")
 
 		vim.cmd("packadd dressing.nvim")
 		require("plugins.dressing")
