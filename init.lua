@@ -4,15 +4,11 @@ require("config.keymap")
 require("config.autocmd")
 require("config.lsp")
 require("config.colorscheme")
-require("plugins.conform")
 require("plugins.nvim-treesitter")
 require("plugins.mini")
--- require("plugins.mason")
+require("plugins.mini-pick")
+require("plugins.mini-clue")
 require("plugins.nvim-dev-icons")
-require("plugins.gitsigns")
-require("plugins.persistence")
-require("plugins.dressing")
--- require("plugins.render-markdown")
 require("plugins.floating-term")
 
 -- Only load Render-Markdown for markdown files
@@ -20,7 +16,7 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "markdown" },
 	callback = function()
 		vim.cmd("packadd render-markdown.nvim")
-		require("plugins.render-markdown").setup()
+		require("plugins.render-markdown")
 	end,
 })
 
@@ -32,9 +28,21 @@ vim.api.nvim_create_autocmd("BufRead", {
 		require("mini.surround").setup()
 		require("mini.cursorword").setup()
 		require("mini.pairs").setup()
-		require("plugins.mini-pick")
-		require("plugins.mini-clue")
 		require("plugins.mini-completion")
+
+		vim.cmd("packadd conform.nvim")
+		require("plugins.conform")
+
+		vim.cmd("packadd gitsigns.nvim")
+		require("plugins.gitsigns")
+
+		vim.cmd("packadd nvim-lspconfig")
+
+		vim.cmd("packadd persistence.nvim")
+		require("plugins.persistence")
+
+		vim.cmd("packadd dressing.nvim")
+		require("plugins.dressing")
 		-- etc. for only the ones you actually use
 	end,
 })
