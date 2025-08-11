@@ -1,7 +1,13 @@
 -- escapes terminal buffer
 vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>")
 
-local state = {
+local terminal_state = {
+	floating = {
+		buf = -1,
+		win = -1,
+	},
+}
+local lazygit_state = {
 	floating = {
 		buf = -1,
 		win = -1,
@@ -21,17 +27,11 @@ local function get_window_pos(scaling_factor)
 	return width, height, row, col
 end
 
-local function create_floating_window(scaling_factor, opts)
+local function create_floating_window(scaling_factor)
 	local width, height, row, col = get_window_pos(scaling_factor)
-	opts = opts or {}
 
-	-- Create a buffer
-	local buf = nil
-	if vim.api.nvim_buf_is_valid(opts.buf) then
-		buf = opts.buf
-	else
-		buf = vim.api.nvim_create_buf(false, true) -- No file, scratch buffer
-	end
+	-- Create a new buffer every time
+	local buf = vim.api.nvim_create_buf(false, true)
 
 	-- Define window configuration
 	local win_config = {
@@ -40,7 +40,7 @@ local function create_floating_window(scaling_factor, opts)
 		height = height,
 		col = col,
 		row = row,
-		style = "minimal", -- No borders or extra UI elements
+		style = "minimal",
 		border = "rounded",
 	}
 
@@ -67,15 +67,13 @@ local function create_floating_window(scaling_factor, opts)
 end
 
 local toggle_terminal = function()
-	local scaling = 0.618
-	if not vim.api.nvim_win_is_valid(state.floating.win) then
-		state.floating = create_floating_window(scaling, { buf = state.floating.buf })
-		if vim.bo[state.floating.buf].buftype ~= "terminal" then
-			vim.cmd.terminal()
-			vim.cmd("startinsert")
-		end
+	local scaling = 0.8
+	if not vim.api.nvim_win_is_valid(terminal_state.floating.win) then
+		terminal_state.floating = create_floating_window(scaling)
+		vim.cmd("terminal")
+		vim.cmd("startinsert")
 	else
-		vim.api.nvim_win_hide(state.floating.win)
+		vim.api.nvim_win_hide(terminal_state.floating.win)
 	end
 end
 
@@ -84,41 +82,43 @@ local function open_lazygit(cmd)
 		vim.notify("No command provided for floating terminal", vim.log.levels.WARN)
 		return
 	end
-	local scaling = 0.9
-	if not vim.api.nvim_win_is_valid(state.floating.win) then
-		state.floating = create_floating_window(scaling, { buf = state.floating.buf })
-		if vim.bo[state.floating.buf].buftype ~= "terminal" then
-			vim.cmd.terminal(cmd)
-			vim.cmd("startinsert")
-			vim.api.nvim_create_autocmd("TermClose", {
-				buffer = state.floating.buf,
-				once = true,
-				callback = function()
-					-- schedule UI changes to avoid textlock
-					vim.schedule(function()
-						-- close the floating window if still valid
-						if vim.api.nvim_win_is_valid(state.floating.win) then
-							pcall(vim.api.nvim_win_close, state.floating.win, true)
-						end
-						-- delete the buffer (use mini.bufremove if present)
-						if vim.api.nvim_buf_is_valid(state.floating.buf) then
-							vim.api.nvim_buf_delete(state.floating.buf, { force = true })
-						end
-					end)
-				end,
-			})
-		end
-	else
-		vim.api.nvim_win_hide(state.floating.win)
+
+	-- Close any existing lazygit window first
+	if vim.api.nvim_win_is_valid(lazygit_state.floating.win) then
+		pcall(vim.api.nvim_win_close, lazygit_state.floating.win, true)
 	end
+
+	local scaling = 0.9
+	lazygit_state.floating = create_floating_window(scaling)
+
+	vim.cmd.terminal(cmd)
+	vim.cmd("startinsert")
+
+	vim.api.nvim_create_autocmd("TermClose", {
+		buffer = lazygit_state.floating.buf,
+		once = true,
+		callback = function()
+			vim.schedule(function()
+				if vim.api.nvim_win_is_valid(lazygit_state.floating.win) then
+					pcall(vim.api.nvim_win_close, lazygit_state.floating.win, true)
+				end
+				if vim.api.nvim_buf_is_valid(lazygit_state.floating.buf) then
+					vim.api.nvim_buf_delete(lazygit_state.floating.buf, { force = true })
+				end
+				lazygit_state.floating.win = -1
+				lazygit_state.floating.buf = -1
+			end)
+		end,
+	})
 end
 
 local close_terminal = function()
-	vim.api.nvim_buf_delete(state.floating.buf, { force = true })
+	if vim.api.nvim_buf_is_valid(terminal_state.floating.buf) then
+		vim.api.nvim_buf_delete(terminal_state.floating.buf, { force = true })
+	end
 end
 
 -- Example usage:
--- Create a floating window with default dimensions
 vim.api.nvim_create_user_command("ToggleFloatingTerminal", toggle_terminal, {})
 vim.api.nvim_create_user_command("CloseTerminal", close_terminal, {})
 vim.api.nvim_create_user_command("LazyGit", function()
