@@ -8,6 +8,7 @@
 -- so in ~.config/lsp/lua_ls.lua for lua_ls, for example.
 -- vim.lsp.enable('lua_ls')
 -- vim.lsp.enable('clangd')
+vim.pack.add({ { src = "https://github.com/neovim/nvim-lspconfig" } })
 
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(ev)
