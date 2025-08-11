@@ -24,7 +24,8 @@ local map = vim.keymap.set
 map("n", "<leader>fw", "<cmd>Pick grep_live<CR>", { desc = "live grep" })
 map("n", "<leader>fh", "<cmd>Pick help<CR>", { desc = "help page" })
 map("n", "<leader>ma", "<cmd>Pick marks<CR>", { desc = "find marks" })
-map("n", "<leader>fb", "<cmd>Pick buf_lines<CR>", { desc = "find in current buffer" })
+map("n", "<leader>fib", "<cmd>Pick buf_lines<CR>", { desc = "find in current buffer" })
+map("n", "<leader>fb", "<cmd>Pick buffers<CR>", { desc = "find buffer" })
 map("n", "<leader>fa", "<cmd>Pick files<cr>", { desc = "find all files" })
 map("n", "<leader>fo", "<cmd>Pick oldfiles<cr>", { desc = "find from recent files" })
 
