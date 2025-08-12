@@ -44,7 +44,47 @@ map("v", "K", ":m '>-2<CR>gv=gv", { desc = "Move Line Up", silent = true })
 map("n", "<leader>l", ":set list!<cr>", { desc = "Toggle [l]istchars", silent = true })
 
 -- Diagnostic keymaps
-map("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
+map("n", "<leader>dq", vim.diagnostic.setqflist, { desc = "Open diagnostic [Q]uickfix list" })
+
+local function open_lsp_references_in_qf()
+	vim.lsp.buf.references()
+
+	vim.defer_fn(function()
+		local items = vim.fn.getloclist(0)
+		if not vim.tbl_isempty(items) then
+			vim.fn.setqflist({}, " ", {
+				title = "LSP References",
+				items = items,
+			})
+			vim.cmd("copen")
+		else
+			print("No references found.")
+		end
+	end, 50) -- Delay to allow the loclist to be populated
+end
+
+vim.keymap.set("n", "gr", open_lsp_references_in_qf, { desc = "Go to references (quickfix)" })
+
+-- Toggle the quickfix list window
+local function toggle_quickfix()
+	local quickfix_open = false
+	for _, win in ipairs(vim.api.nvim_list_wins()) do
+		local buf = vim.api.nvim_win_get_buf(win)
+		if vim.api.nvim_buf_get_option(buf, "buftype") == "quickfix" then
+			quickfix_open = true
+			break
+		end
+	end
+
+	if quickfix_open then
+		vim.cmd.cclose()
+	else
+		vim.cmd.copen()
+	end
+end
+
+-- Mappings
+vim.keymap.set("n", "<leader>q", toggle_quickfix, { desc = "Toggle quickfix list" })
 
 map("i", "<C-b>", "<ESC>^i", { desc = "move beginning of line", silent = true })
 map("i", "<C-e>", "<End>", { desc = "move end of line", silent = true })
@@ -62,9 +102,6 @@ map("n", "<Esc>", "<cmd>noh<CR>", { desc = "general clear highlights", silent = 
 
 map("n", "<C-s>", "<cmd>w<CR>", { desc = "general save file", silent = true })
 map("n", "<C-c>", "<cmd>%y+<CR>", { desc = "general copy whole file", silent = true })
-
--- global lsp mappings
-map("n", "<leader>ds", vim.diagnostic.setloclist, { desc = "LSP diagnostic loclist" })
 
 -- tabufline
 map("n", "<leader>b", "<cmd>enew<CR>", { desc = "buffer new", silent = true })
