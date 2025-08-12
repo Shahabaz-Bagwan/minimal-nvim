@@ -2,7 +2,6 @@ require("config.globals")
 require("config.options")
 require("config.keymap")
 require("config.autocmd")
-require("config.lsp")
 require("config.colorscheme")
 require("plugins.nvim-treesitter")
 require("plugins.mini")
@@ -11,6 +10,7 @@ require("plugins.mini-clue")
 require("plugins.nvim-dev-icons")
 require("plugins.floating-term")
 require("plugins.persistence")
+require("config.lsp")
 
 -- Only load Render-Markdown for markdown files
 vim.api.nvim_create_autocmd("FileType", {

@@ -56,7 +56,7 @@ end
 
 vim.api.nvim_create_autocmd("LspAttach", { callback = on_attach })
 
-local cap = "v:lua.MiniCompletion.get_lsp_capabilities()"
+local cap = require("mini.completion").get_lsp_capabilities()
 vim.lsp.config("*", { capabilities = cap })
 
 -- Diagnostics
