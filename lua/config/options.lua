@@ -59,9 +59,7 @@ vim.o.endofline = true
 vim.o.foldcolumn = "1"
 vim.o.relativenumber = true
 vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
--- vim.opt.foldenable = false
--- vim.api.nvim_create_autocmd({ "BufEnter" }, { pattern = { "*" }, command = "normal zx" })
-vim.api.nvim_create_autocmd({ "BufEnter" }, { pattern = { "*" }, command = "normal zR" })
+vim.opt.foldenable = false
 -------------------------------------- options ------------------------------------------
 o.laststatus = 3
 o.showmode = false
@@ -71,6 +69,9 @@ o.clipboard = "unnamedplus"
 o.cursorlineopt = "number"
 
 opt.fillchars = { eob = " " }
+
+-- reload file if it is changed outside
+o.autoread = true
 
 -- Numbers
 o.numberwidth = 2

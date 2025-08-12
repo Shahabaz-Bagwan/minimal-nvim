@@ -1,7 +1,7 @@
 -- autocmd
 --------------------------------------------------------------------------------
-vim.api.nvim_create_autocmd({ "BufEnter" }, { pattern = { "*" }, command = "normal zx" })
-vim.api.nvim_create_autocmd({ "BufEnter" }, { pattern = { "*" }, command = "normal zR" })
+-- vim.api.nvim_create_autocmd({ "BufEnter" }, { pattern = { "*" }, command = "normal zx" })
+-- vim.api.nvim_create_autocmd({ "BufEnter" }, { pattern = { "*" }, command = "normal zR" })
 
 -- Highlight when yanking
 vim.api.nvim_create_autocmd("TextYankPost", {
@@ -10,6 +10,11 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	callback = function()
 		vim.highlight.on_yank()
 	end,
+})
+
+-- Check for file changes when returning to Neovim
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
+	command = "checktime",
 })
 
 -- restore cursor pos on file open
