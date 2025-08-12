@@ -70,7 +70,7 @@ local function toggle_quickfix()
 	local quickfix_open = false
 	for _, win in ipairs(vim.api.nvim_list_wins()) do
 		local buf = vim.api.nvim_win_get_buf(win)
-		if vim.api.nvim_buf_get_option(buf, "buftype") == "quickfix" then
+		if vim.api.nvim_get_option_value("buftype", { buf = buf }) == "quickfix" then
 			quickfix_open = true
 			break
 		end
@@ -84,7 +84,8 @@ local function toggle_quickfix()
 end
 
 -- Mappings
-vim.keymap.set("n", "<leader>q", toggle_quickfix, { desc = "Toggle quickfix list" })
+map("n", "<leader>q", toggle_quickfix, { desc = "Toggle quickfix list" })
+map("n", "<leader>rp", ":%s/<C-r><C-w>//gc<Left><Left><Left>", { desc = "Replace word under cursor" })
 
 map("i", "<C-b>", "<ESC>^i", { desc = "move beginning of line", silent = true })
 map("i", "<C-e>", "<End>", { desc = "move end of line", silent = true })
