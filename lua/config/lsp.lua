@@ -19,7 +19,7 @@ local on_attach = function(ev)
 	end, { buffer = ev.buf, desc = "vim.lsp.buf.definition()" })
 
 	vim.keymap.set("n", "grD", function()
-		vim.lsp.buf.definition()
+		vim.lsp.buf.declaration()
 	end, { buffer = ev.buf, desc = "vim.lsp.buf.declaration()" })
 
 	local map = vim.keymap.set
@@ -27,7 +27,7 @@ local on_attach = function(ev)
 	map("n", "gri", "<cmd>Pick lsp scope='implementation'<CR>", { desc = "go to implementation" })
 	map("n", "grr", "<cmd>Pick lsp scope='references'<CR>", { desc = "go to references" })
 	map("n", "grt", "<cmd>Pick lsp scope='type_definition'<CR>", { desc = "go to type_definition" })
-	map("n", "grs", "<cmd>Pick lsp scope='document_symbol'<cr>", { desc = "find document_symbol" })
+	map("n", "gO", "<cmd>Pick lsp scope='document_symbol'<cr>", { desc = "find document_symbol" })
 	map("n", "grw", "<cmd>Pick lsp scope='workspace_symbol'<cr>", { desc = "find workspace_symbol" })
 	map("i", "<Tab>", [[pumvisible() ? "\<C-n>" : "\<Tab>"]], { expr = true })
 	map("i", "<S-Tab>", [[pumvisible() ? "\<C-p>" : "\<S-Tab>"]], { expr = true })
