@@ -41,6 +41,9 @@ vim.api.nvim_create_autocmd("BufRead", {
 
 		vim.cmd("packadd dressing.nvim")
 		require("plugins.dressing")
+
+		vim.cmd("packadd indent-blankline.nvim")
+		require("plugins.indent-blankline")
 		-- etc. for only the ones you actually use
 	end,
 })
