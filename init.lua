@@ -17,6 +17,7 @@ require("plugins.persistence")
 require("plugins.render-markdown")
 require("plugins.dressing")
 require("plugins.mason")
+require("plugins.opencode")
 
 -- lsp requires copletion tool
 require("plugins.mini-completion")
