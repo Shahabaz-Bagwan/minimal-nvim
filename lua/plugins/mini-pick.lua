@@ -19,14 +19,57 @@ require("mini.pick").setup({
 		prompt_prefix = "",
 	},
 })
-vim.ui.select = require("mini.pick").ui_select
+
 local map = vim.keymap.set
 map("n", "<leader>fw", "<cmd>Pick grep_live<CR>", { desc = "live grep" })
 map("n", "<leader>fh", "<cmd>Pick help<CR>", { desc = "help page" })
 map("n", "<leader>ma", "<cmd>Pick marks<CR>", { desc = "find marks" })
 map("n", "<leader>fib", "<cmd>Pick buf_lines<CR>", { desc = "find in current buffer" })
 map("n", "<leader>fb", "<cmd>Pick buffers<CR>", { desc = "find buffer" })
-map("n", "<leader>fa", "<cmd>Pick files<cr>", { desc = "find all files" })
+
+-- use it if you do not care about icons
+-- map(
+-- 	"n",
+-- 	"<leader>fa",
+-- 	"<cmd>lua MiniPick.builtin.cli({command = {'fdfind', '-t', 'f', '-E', '.git', '--no-hidden', '--no-ignore-vcs', '--strip-cwd-prefix'}})<CR>",
+-- 	{ desc = "find all files" }
+-- )
+
+local pick = require("mini.pick")
+
+vim.keymap.set("n", "<leader>fa", function()
+	pick.start({
+		source = {
+			name = "Files (fdfind)",
+			items = function()
+				return vim.fn.systemlist({
+					"fdfind",
+					"-t",
+					"f",
+					"-E",
+					".git",
+					"--no-hidden",
+					"--no-ignore-vcs",
+					"--strip-cwd-prefix",
+				})
+			end,
+			format = function(item)
+				local icon, hl
+				local ok, dev = pcall(require, "nvim-web-devicons")
+				if ok then
+					icon, hl = dev.get_icon(vim.fn.fnamemodify(item, ":t"), nil, { default = true })
+				end
+				icon = (icon or "") .. " "
+				hl = hl or "MiniPickIconFile"
+				return { text = icon .. item, hl = hl }
+			end,
+			show = function(buf_id, items, query)
+				pick.default_show(buf_id, items, query, { show_icons = true })
+			end,
+		},
+	})
+end, { desc = "Find files with fdfind + icons" })
+
 map("n", "<leader>fo", "<cmd>Pick oldfiles<cr>", { desc = "find from recent files" })
 
 map("n", "<leader>gh", "<cmd>Pick git_hunks<CR>", { desc = "git hunks" })
