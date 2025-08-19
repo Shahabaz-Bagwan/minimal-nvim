@@ -2,49 +2,49 @@ local map = vim.keymap.set
 -- keymap
 --------------------------------------------------------------------------------
 -- Navigate visual lines
-map({ "n", "x" }, "j", "gj", { desc = "Navigate down (visual line)", silent = true })
-map({ "n", "x" }, "k", "gk", { desc = "Navigate up (visual line)", silent = true })
-map({ "n", "x" }, "<Down>", "gj", { desc = "Navigate down (visual line)", silent = true })
+map({ "n", "x" }, "j", "gj", { desc = "navigate down (visual line)", silent = true })
+map({ "n", "x" }, "k", "gk", { desc = "navigate up (visual line)", silent = true })
+map({ "n", "x" }, "<Down>", "gj", { desc = "navigate down (visual line)", silent = true })
 
-map({ "n", "v" }, ";", ":", { desc = "Enter cmd" })
+map({ "n", "v" }, ";", ":", { desc = "enter cmd" })
 
-map({ "n", "x" }, "<Up>", "gk", { desc = "Navigate up (visual line)", silent = true })
-map("i", "<Down>", "<C-\\><C-o>gj", { desc = "Navigate down (visual line)", silent = true })
+map({ "n", "x" }, "<Up>", "gk", { desc = "navigate up (visual line)", silent = true })
+map("i", "<Down>", "<C-\\><C-o>gj", { desc = "navigate down (visual line)", silent = true })
 
-map("i", "<Up>", "<C-\\><C-o>gk", { desc = "Navigate up (visual line)", silent = true })
+map("i", "<Up>", "<C-\\><C-o>gk", { desc = "navigate up (visual line)", silent = true })
 
 map(
 	{ "n", "v" },
 	"j",
 	'v:count || mode(1)[0:1] == "no" ? "j" : "gj"',
-	{ desc = "Move down", silent = true, expr = true }
+	{ desc = "move down", silent = true, expr = true }
 )
 
-map({ "n", "v" }, "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { desc = "Move up", expr = true, silent = true })
+map({ "n", "v" }, "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { desc = "move up", expr = true, silent = true })
 
 map(
 	{ "n", "v" },
 	"Up",
 	'v:count || mode(1)[0:1] == "no" ? "k" : "gk"',
-	{ desc = "Move up", expr = true, silent = true }
+	{ desc = "move up", expr = true, silent = true }
 )
 
 map(
 	{ "n", "v" },
 	"Down",
 	'v:count || mode(1)[0:1] == "no" ? "j" : "gj"',
-	{ desc = "Move down", expr = true, silent = true }
+	{ desc = "move down", expr = true, silent = true }
 )
 
 -- Move Lines
-map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move Line Down", silent = true })
-map("v", "K", ":m '>-2<CR>gv=gv", { desc = "Move Line Up", silent = true })
+map("v", "J", ":m '>+1<CR>gv=gv", { desc = "move line down", silent = true })
+map("v", "K", ":m '>-2<CR>gv=gv", { desc = "move line up", silent = true })
 
 -- Toggle visible whitespace characters
-map("n", "<leader>l", ":set list!<cr>", { desc = "Toggle [l]istchars", silent = true })
+map("n", "<leader>l", ":set list!<cr>", { desc = "toggle [l]istchars", silent = true })
 
 -- Diagnostic keymaps
-map("n", "<leader>dq", vim.diagnostic.setqflist, { desc = "Open diagnostic [Q]uickfix list" })
+map("n", "<leader>dq", vim.diagnostic.setqflist, { desc = "open diagnostic [q]uickfix list" })
 
 local function open_lsp_references_in_qf()
 	vim.lsp.buf.references()
@@ -63,7 +63,7 @@ local function open_lsp_references_in_qf()
 	end, 50) -- Delay to allow the loclist to be populated
 end
 
-vim.keymap.set("n", "gr", open_lsp_references_in_qf, { desc = "Go to references (quickfix)" })
+vim.keymap.set("n", "gr", open_lsp_references_in_qf, { desc = "go to references (quickfix)" })
 
 -- Toggle the quickfix list window
 local function toggle_quickfix()
@@ -84,18 +84,19 @@ local function toggle_quickfix()
 end
 
 -- project building
-vim.keymap.set(
-	"n",
-	"<leader>cc",
-	"<cmd>!mkdir -p build; cd ./build; cmake .. -G Ninja<cr>",
-	{ desc = "configure the project via cmake" }
-)
-vim.keymap.set("n", "<leader>m", ":silent make<CR>", { desc = "build the project" })
-vim.keymap.set("n", "<leader>mb", ":silent make ", { desc = "bulild the user definded project" })
+vim.keymap.set("n", "<leader>cc", function()
+	local out = vim.fn.system("mkdir -p build; cd build; cmake .. -G Ninja")
+	vim.fn.setqflist({}, " ", { title = "CMake configure", lines = vim.fn.split(out, "\n") })
+	vim.cmd("copen")
+end, { desc = "configure the project via cmake" })
+
+vim.keymap.set("n", "<leader>m", "<cmd>silent make<CR>", { desc = "build the project" })
+
+vim.keymap.set("n", "<leader>mb", ":silent make ", { desc = "build the user defined project" })
 
 -- Mappings
-map("n", "<leader>q", toggle_quickfix, { desc = "Toggle quickfix list" })
-map("n", "<leader>rp", ":%s/<C-r><C-w>//gc<Left><Left><Left>", { desc = "Replace word under cursor" })
+map("n", "<leader>q", toggle_quickfix, { desc = "toggle quickfix list" })
+map("n", "<leader>rp", ":%s/<C-r><C-w>//gc<Left><Left><Left>", { desc = "replace word under cursor" })
 
 map("i", "<C-b>", "<ESC>^i", { desc = "move beginning of line", silent = true })
 map("i", "<C-e>", "<End>", { desc = "move end of line", silent = true })
@@ -117,8 +118,8 @@ map("n", "<C-c>", "<cmd>%y+<CR>", { desc = "general copy whole file", silent = t
 -- tabufline
 map("n", "<leader>b", "<cmd>enew<CR>", { desc = "buffer new", silent = true })
 
-map("n", "<tab>", "<cmd>bn<cr>", { desc = "buffer goto next", nowait = true })
-map("n", "<S-tab>", "<cmd>bp<cr>", { desc = "buffer goto prev", nowait = true })
+map("n", "<tab>", "<cmd>bn<cr>", { desc = "buffer go to next", nowait = true })
+map("n", "<S-tab>", "<cmd>bp<cr>", { desc = "buffer go to prev", nowait = true })
 map("n", "<leader>ca", "<cmd> %bd <bar> e# <bar> bd# <bar> '\" <CR>", { desc = "buffer close others", nowait = true })
 map("n", "<leader>x", "<cmd>bd<cr>", { desc = "buffer close", silent = true })
 
@@ -128,3 +129,6 @@ map("v", "<leader>/", "gc", { desc = "toggle comment", remap = true, silent = tr
 
 -- terminal
 map("t", "<C-x>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
+
+-- spelling
+map("n", "<leader>ss", "<cmd>set spell!<cr>", { desc = "toggle spell check", silent = true })
