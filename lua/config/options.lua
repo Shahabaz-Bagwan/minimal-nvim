@@ -61,6 +61,12 @@ vim.o.relativenumber = true
 vim.wo.foldexpr = "v:lua.vim.lsp.foldexpr()"
 vim.opt.foldenable = false
 -------------------------------------- options ------------------------------------------
+-- make ninja as default make command
+vim.opt.makeprg = "ninja -C build"
+
+-- don't extend the comment line when new line is added
+opt.formatoptions:remove({ "o", "r" })
+
 o.laststatus = 3
 o.showmode = false
 o.splitkeep = "screen"

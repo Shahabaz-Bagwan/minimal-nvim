@@ -83,6 +83,16 @@ local function toggle_quickfix()
 	end
 end
 
+-- project building
+vim.keymap.set(
+	"n",
+	"<leader>cc",
+	"<cmd>!mkdir -p build; cd ./build; cmake .. -G Ninja<cr>",
+	{ desc = "configure the project via cmake" }
+)
+vim.keymap.set("n", "<leader>m", ":silent make<CR>", { desc = "build the project" })
+vim.keymap.set("n", "<leader>mb", ":silent make ", { desc = "bulild the user definded project" })
+
 -- Mappings
 map("n", "<leader>q", toggle_quickfix, { desc = "Toggle quickfix list" })
 map("n", "<leader>rp", ":%s/<C-r><C-w>//gc<Left><Left><Left>", { desc = "Replace word under cursor" })
