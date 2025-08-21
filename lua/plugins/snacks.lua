@@ -13,7 +13,16 @@ require("snacks").setup({
 		enabled = true,
 		timeout = 3000,
 	},
-	picker = { enabled = true },
+	picker = {
+		enabled = true,
+		sources = {
+			grep = {
+				args = {
+					"--ignore-case",
+				},
+			},
+		},
+	},
 	quickfile = { enabled = true },
 	rename = { enabled = true },
 	scope = { enabled = true },
