@@ -1,12 +1,10 @@
 vim.pack.add({
 	{ src = "https://github.com/echasnovski/mini.nvim", branch = "stable" },
 })
-require("mini.indentscope").setup({ symbol = "│", options = { try_as_border = true } })
 require("mini.surround").setup()
 require("mini.cursorword").setup()
 require("mini.pairs").setup()
 require("mini.statusline").setup()
-require("mini.notify").setup()
 require("mini.tabline").setup()
 require("mini.extra").setup()
 

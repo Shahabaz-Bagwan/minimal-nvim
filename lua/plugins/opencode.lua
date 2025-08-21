@@ -1,13 +1,9 @@
 vim.pack.add({
 	{
-		src = "https://github.com/folke/snacks.nvim",
-	},
-	{
 		src = "https://github.com/NickvanDyke/opencode.nvim",
 	},
 })
 
-require("snacks").setup()
 require("opencode").setup()
 
 vim.keymap.set("n", "<leader>ot", function()
