@@ -21,7 +21,7 @@ require("snacks").setup({
 	lazygit = { enabled = true },
 	terminal = { enabled = true },
 	statuscolumn = { enabled = true },
-	words = { enabled = true },
+	words = { enabled = false },
 })
 
 -- keymaps
