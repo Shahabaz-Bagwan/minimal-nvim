@@ -1,6 +1,8 @@
 vim.pack.add({
 	"https://github.com/Mofiqul/dracula.nvim",
+	"https://github.com/folke/tokyonight.nvim",
 })
 
 require("dracula").setup()
-vim.cmd([[colorscheme dracula]])
+require("tokyonight").setup()
+vim.cmd([[colorscheme tokyonight]])
