@@ -10,6 +10,10 @@ vim.pack.add({ { src = "https://github.com/neovim/nvim-lspconfig" } })
 
 vim.lsp.enable("lua_ls")
 vim.lsp.enable("clangd")
+vim.lsp.enable("bash-language-server")
+vim.lsp.enable("rust-analyzer")
+vim.lsp.enable("ltex-ls")
+vim.lsp.enable("cmake-language-server")
 
 local on_attach = function(ev)
 	vim.bo[ev.buf].omnifunc = "v:lua.MiniCompletion.completefunc_lsp"

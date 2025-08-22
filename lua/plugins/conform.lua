@@ -10,6 +10,11 @@ require("conform").setup({
 		javascript = { "prettier" },
 		cpp = { "clang-format" },
 		c = { "clang-format" },
+		sh = { "shfmt", "shellcheck" },
+		bash = { "shfmt", "shellcheck" },
+		tex = { "tex-fmt" },
+		rust = { "rustfmt", lsp_format = "fallback" },
+		["*"] = { "codespell" },
 	},
 })
 vim.keymap.set({ "n", "x" }, "<leader>fm", function()
