@@ -13,12 +13,34 @@ require("snacks").setup({
 		enabled = true,
 		timeout = 3000,
 	},
+	explorer = {
+		enabled = true,
+	},
 	picker = {
 		enabled = true,
 		sources = {
 			grep = {
 				args = {
 					"--ignore-case",
+				},
+			},
+			explorer = {
+				layout = {
+					{ preview = true },
+					layout = {
+						box = "horizontal",
+						width = 0.8,
+						height = 0.8,
+						{
+							box = "vertical",
+							border = "rounded",
+							title = "{source} {live} {flags}",
+							title_pos = "center",
+							{ win = "input", height = 1, border = "bottom" },
+							{ win = "list", border = "none" },
+						},
+						{ win = "preview", border = "rounded", width = 0.7, title = "{preview}" },
+					},
 				},
 			},
 		},
@@ -45,41 +67,13 @@ map("n", "<leader>tt", function()
 	require("snacks").terminal()
 end, { desc = "toggle terminal" })
 
-map("n", "<leader>ff", function()
-	picker.projects()
-end, { desc = "find folders" })
+map("n", "<leader>se", function()
+	picker.explorer()
+end, { desc = "open snacks explorer" })
 
-map("n", "<leader>fw", function()
-	picker.grep()
-end, { desc = "live grep" })
-
-map("n", "<leader>fa", function()
-	picker.smart()
-end, { desc = "smart file search" })
-
-map("n", "<leader>fh", function()
-	picker.help()
-end, { desc = "help page" })
-
-map("n", "<leader>ma", function()
-	picker.marks()
-end, { desc = "find marks" })
-
-map("n", "<leader>fib", function()
-	picker.lines()
-end, { desc = "find in current buffer" })
-
-map("n", "<leader>fb", function()
-	picker.buffers()
-end, { desc = "find buffer" })
-
-map("n", "<leader>fo", function()
-	picker.recent()
-end, { desc = "find from recent files" })
-
-map("n", "<leader>gh", function()
-	picker.git_diff()
-end, { desc = "git hunks" })
+map("n", "<leader>gll", function()
+	picker.git_log_line()
+end, { desc = "show git line log" })
 
 -- lsp
 map("n", "<leader>gd", function()
