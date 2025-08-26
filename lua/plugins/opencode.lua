@@ -10,11 +10,11 @@ vim.keymap.set("n", "<leader>ot", function()
 	require("opencode").toggle()
 end, { desc = "Toggle embedded opencode" })
 
-vim.keymap.set("n", "<leader>oa", function()
+vim.keymap.set("n", "<leader>oak", function()
 	require("opencode").ask()
 end, { desc = "Ask opencode" })
 
-vim.keymap.set("n", "<leader>oa", function()
+vim.keymap.set({ "n", "v" }, "<leader>oas", function()
 	require("opencode").ask("@selection: ")
 end, { desc = "Ask opencode about selection" })
 
