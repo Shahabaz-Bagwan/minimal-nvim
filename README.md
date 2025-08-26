@@ -1,11 +1,11 @@
+
 # Minimal Neovim — Plugins & Startup
 
 ## Plugins included
 
-- snacks.nvim — helper UI utilities (loaded by `lua/plugins/opencode.lua`)
+- snacks.nvim — helper UI utilities including `snacks.picker` for file/search UIs (loaded by `lua/plugins/opencode.lua`)
 - opencode.nvim — embedded AI/code assistant integration (toggle, ask, prompts)
 - mini.nvim (echasnovski/mini.nvim) — collection of small Lua modules: indentscope, surround, cursorword, pairs, statusline, notify, tabline, extra, icons, files, etc.
-- mini-pick — small fuzzy picker used for file/search UIs (used instead of dressing select)
 - mini-completion / mini.snippets — completion + snippets support; loads friendly-snippets and local snippets
 - mini-clue — shows keybinding/clue popup for leader/g/marks/registers/windows/z
 - nvim-web-devicons — filetype icons for UI components
@@ -13,7 +13,6 @@
 - persistence.nvim — session persistence (save/restore sessions)
 - nvim-treesitter — treesitter parsing + nvim-treesitter-context for code context
 - render-markdown.nvim — improved inline markdown rendering (links, callouts, icons, checkboxes)
-- dressing.nvim — nicer vim.ui.select and vim.ui.input (select disabled in favor of mini-pick)
 - mason.nvim, mason-lspconfig.nvim, mason-tool-installer.nvim — LSP/server/tool installer and manager; ensures common tools (lua_ls, stylua, clangd, pyright, texlab, etc.)
 - gitsigns.nvim — Git diff signs, hunks and current-line blame
 - floating-term (custom) — floating terminal helper + lazygit integration (defined in `lua/plugins/floating-term.lua`)
@@ -22,6 +21,14 @@
 Notes:
 - Plugins are added via `vim.pack.add` in `lua/plugins/*`.
 - LSP config files are in `lsp/` (e.g., `clangd.lua`, `jsonls.lua`, `lua_ls.lua`).
+
+## Configuration Details
+
+- **LSP:** Language Server Protocol configurations are located in the `lsp/` directory, with individual files for each LSP server (e.g., `clangd.lua`, `jsonls.lua`, `lua_ls.lua`). LSP capabilities are integrated with `mini.nvim`.
+- **Keymaps:** Custom keymaps are defined in `lua/config/keymap.lua`, providing consistent descriptions and integrating with `snacks.picker` for various functionalities like LSP references, diagnostics, and file searching.
+- **Autocommands:** Autocommands are managed in `lua/config/autocmd.lua`, including functionality to reload files on changes outside of Neovim.
+- **Options:** General Neovim options are set in `lua/config/options.lua`, including settings for auto-updating files when changes occur externally.
+- **Colorscheme:** The default colorscheme is `tokyonight` (or `dracula` / `slate` as per commit history), configured in `lua/config/colorscheme.lua`.
 
 ## Startup time — overview
 
