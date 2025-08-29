@@ -1,5 +1,5 @@
 vim.pack.add({
-	{ src = "https://github.com/echasnovski/mini.nvim", branch = "stable" },
+	{ src = "https://github.com/nvim-mini/mini.nvim", branch = "stable" },
 })
 require("mini.surround").setup()
 require("mini.cursorword").setup()
