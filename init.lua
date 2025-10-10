@@ -15,7 +15,8 @@ require("plugins.persistence")
 require("plugins.render-markdown")
 require("plugins.mason")
 require("plugins.opencode")
+require("plugins.nvim-dap")
 
--- lsp requires copletion tool
+-- lsp requires completion tool
 require("plugins.mini-completion")
 require("config.lsp")

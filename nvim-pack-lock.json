@@ -1,0 +1,12 @@
+{
+  "plugins": {
+    "dracula.nvim": [],
+    "nvim-treesitter": {
+      "version": "'master'"
+    },
+    "nvim-treesitter-context": {
+      "version": "'v1.0.0'"
+    },
+    "tokyonight.nvim": []
+  }
+}
