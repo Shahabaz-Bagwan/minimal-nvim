@@ -14,7 +14,7 @@ require("conform").setup({
 		bash = { "shfmt", "shellcheck" },
 		tex = { "tex-fmt" },
 		rust = { "rustfmt", lsp_format = "fallback" },
-		["*"] = { "codespell" },
+		json = { "jq", lsp_format = "fallback" },
 	},
 })
 vim.keymap.set({ "n", "x" }, "<leader>fm", function()
