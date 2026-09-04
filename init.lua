@@ -4,7 +4,6 @@ require("config.keymap")
 require("config.autocmd")
 require("config.colorscheme")
 
-require("plugins.nvim-treesitter")
 require("plugins.mini")
 require("plugins.snacks")
 require("plugins.conform")
