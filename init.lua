@@ -19,3 +19,5 @@ require("plugins.nvim-dap")
 -- lsp requires completion tool
 require("plugins.mini-completion")
 require("config.lsp")
+
+vim.keymap.del({ "n" }, "Q")
