@@ -12,8 +12,11 @@ vim.lsp.enable("lua_ls")
 vim.lsp.enable("clangd")
 vim.lsp.enable("bash-language-server")
 vim.lsp.enable("rust-analyzer")
+vim.lsp.enable("pyright")
 vim.lsp.enable("ltex-ls")
+vim.lsp.enable("texlab")
 vim.lsp.enable("cmake-language-server")
+vim.lsp.enable("lemminx")
 
 local on_attach = function(ev)
 	vim.bo[ev.buf].omnifunc = "v:lua.MiniCompletion.completefunc_lsp"
@@ -64,6 +67,10 @@ local on_attach = function(ev)
 		-- return "\r"
 		return "v:lua.MiniPairs.cr()"
 	end
+
+	vim.keymap.set("n", "<leader>i", function()
+		vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ 0 }), { 0 })
+	end)
 
 	vim.keymap.set("i", "<CR>", "v:lua.cr_action()", { expr = true })
 	vim.keymap.set("i", "<CR>", function()
