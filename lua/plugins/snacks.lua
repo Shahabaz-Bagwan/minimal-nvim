@@ -6,7 +6,7 @@ vim.pack.add({
 
 -- snacks.nvim setup
 require("snacks").setup({
-	bigfile = { enabled = true },
+	bigfile = { enabled = true, size = 10 * 1024 * 1024 },
 	indent = { enabled = true },
 	input = { enabled = true },
 	notifier = {

@@ -58,7 +58,7 @@ vim.o.fixendofline = true
 vim.o.endofline = true
 vim.o.foldcolumn = "1"
 vim.o.relativenumber = true
-vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
+vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldenable = false
 -------------------------------------- options ------------------------------------------
 -- make ninja as default make command
