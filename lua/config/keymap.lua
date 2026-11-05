@@ -43,6 +43,8 @@ map("v", "K", ":m '>-2<CR>gv=gv", { desc = "move line up", silent = true })
 -- Toggle visible whitespace characters
 map("n", "<leader>l", ":set list!<cr>", { desc = "toggle [l]istchars", silent = true })
 
+map("n", "<leader>wp", ":set wrap!<cr>", { desc = "toggle [w]ra[p]ing", silent = true })
+
 -- Diagnostic keymaps
 map("n", "<leader>dq", vim.diagnostic.setqflist, { desc = "open diagnostic [q]uickfix list" })
 
